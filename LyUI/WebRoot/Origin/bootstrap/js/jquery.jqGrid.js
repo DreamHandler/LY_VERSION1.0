@@ -1,9 +1,9 @@
-InitCompriseCss(ModuleUrl+"bootstrap/css/bootstrap.css");
-InitCompriseCss(ModuleUrl+"bootstrap/font-awesome/4.5.0/css/font-awesome.css");
-InitCompriseCss(ModuleUrl+"Grid/jqGrid/css/ui.jqgrid.css");
-InitCompriseCss(ModuleUrl+"bootstrap/css/ace.css");
+InitCompriseCss(BassModuleUrlB+"css/bootstrap.css");
+InitCompriseCss(BassModuleUrlB+"font-awesome/4.5.0/css/font-awesome.css");
+InitCompriseCss(BassModuleUrlB+"jqGrid/css/ui.jqgrid.css");
+InitCompriseCss(BassModuleUrlB+"css/ace.css");
 
-InitComprise(ModuleUrl+"bootstrap/js/grid.locale-en.js");
+InitComprise(BassModuleUrlB+"js/grid.locale-en.js");
 /**
  *
  * @license Guriddo jqGrid JS - v5.0.2 - 2016-01-18

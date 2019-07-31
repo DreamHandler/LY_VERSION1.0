@@ -148,6 +148,24 @@ LBase.prototype = {
 			doc.appendChild(root);
 			return doc;
 		},
+		/**
+		 * 后台返回xml转化为json
+		 */
+		XmlToJson : function(node){
+			var Fields = node.documentElement.selectSingleNode("Fields").childNodes;
+			var FieldsValue = node.documentElement.selectSingleNode("FieldsValue").childNodes;
+			var nodeJson = [];
+			var children = [];
+			for(var i=0;i<FieldsValue.length;i++){//数据循环
+				var nodeJson_info = {};
+				for(var j=0;j<Fields.length;j++){//字段循环
+					var ColName = Fields[j].getAttribute("ColName");
+					nodeJson_info[ColName] = FieldsValue[i].getAttribute(ColName);
+				}
+				nodeJson.push(nodeJson_info);
+			}
+			return nodeJson;
+		},
 		ajaxCall : function(Djson,className,TagName,hander,Bool) //ajax 二号线 ，这里采用 post 传递参数
 		{
 			xmlObject = new getAjaxObject();

@@ -1,0 +1,9 @@
+/* ------------------
+   *   messagebox  *
+* --------------- */
+.l-messagebox-title,.l-messagebox-close,.l-messagebox-close-over,.l-messagebox-btn,.l-messagebox-btn-l,.l-messagebox-btn-r,.l-messagebox-lt,.l-messagebox-rt
+{background-image:url('../images/title_bg.gif'); background-repeat:no-repeat;} 
+ /* --------------
+   *   dialog  *
+* ------------ */ 
+.l-dialog{ background: url(../images/title_bg.gif) repeat-x; -webkit-border-radius: 7px; -moz-border-radius: 7px; border-radius: 7px; position:absolute; z-index: 10000; padding:0; margin:0; font-size:12px; border: 1px solid #BED5F3; box-shadow: 0 1px 6px rgba(99,99,99,.3);} 

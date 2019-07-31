@@ -1,4 +1,4 @@
-InitCompriseCss(BassCssUrl + "css/normal/zTreeStyle.css");
+InitCompriseCss(BassModuleUrl + "Tree/css/zTreeStyle/zTreeStyle.css");
 /*
  * JQuery zTree core 3.5.12
  * http://zTree.me/
