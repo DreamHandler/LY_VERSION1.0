@@ -1,0 +1,43 @@
+#showMoreEpBox{
+	background-color: #FFFFFF;
+	border: #99bbe8 1px solid;
+}
+.buttom-group{
+	height:31px;
+}
+#input_EpBoxFilter{
+	width:100px;
+}
+.span-button{
+	margin-left:5px;
+	color: #0055F1;
+	cursor: pointer;
+}
+.span-button-last{
+	margin-right:5px;
+}
+.span-font{
+	margin-left:10px;
+}
+.input-text{
+	border: 1px solid #ccc;
+  	border-radius: 4px;
+  	margin-top:3px;
+  	height:25px;
+  	width:200px;
+}
+#div_EpBoxContent{
+	border-top:#99bbe8 1px solid;
+	overflow-y: auto;
+}
+.checkboxDIV{
+	margin:0px;
+	padding:0px;
+	padding-top:4px;
+}
+.label_checkbox{
+	float:left;
+	margin-top:1px;
+	margin-left:5px;
+	margin-right:2px;
+}

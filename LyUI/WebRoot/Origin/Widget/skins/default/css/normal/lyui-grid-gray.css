@@ -1,0 +1,126 @@
+.l-panel-header{
+	color: #15428B;
+	font-weight: bold;
+	font-size: 11px;
+	height:24px; 
+	/*border-bottom:1px solid #c2c2c2;*/
+	background:#efefef;
+	position:relative;
+	
+	border: 1px solid #c2c2c2;
+	width: 100%;
+}
+.l-panel-body {
+  position:relative; overflow:hidden; width:100%;
+  border: #c2c2c2 1px solid;
+  border-bottom: 0px;
+}
+.l-grid-header {
+	border-bottom: 1px solid #C2C2C2;
+	height: 22px;
+	line-height: 22px;
+	background:#efefef;
+	overflow: hidden;
+	width: 100%;
+}
+.l-grid-search-word{
+	font-family:"宋体";
+	color: #000000;
+    font-size: 12px;
+    font-weight: normal;
+}
+.l-grid-search-btn {
+	height: 21px;
+	background: #3598db;
+	color: #fff;
+	border: none;
+    -moz-border-radius: 1px;
+    -khtml-border-radius: 1px;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+    font-weight: normal;
+    font-size: 12px;
+    font-family:"宋体";
+}
+.l-grid-search-input {
+	border:1px solid #939191;
+	height: 17px;
+	width: 150px; 
+	color: blue;
+	font-weight: normal;
+}
+.l-grid-hd-cell-mul {
+    border-bottom: 1px solid #C2C2C2;
+}
+.l-grid-hd-cell {   
+    padding:0;
+    margin:0;
+    overflow:hidden; 
+    border-right:1px solid #C2C2C2;   
+    text-align:center;
+}
+.l-grid-row-cell {
+    overflow:hidden; 
+   	border-right:1px solid #C2C2C2;
+   	border-bottom:1px solid #C2C2C2;
+    
+    text-align:center;
+    overflow:hidden;
+}
+.l-grid-totalsummary {
+    border-bottom:1px solid #C2C2C2;
+    
+    background:#EEF3FF; 
+    padding-top:5px; 
+    padding-bottom:5px;
+}
+.l-grid-totalsummary .l-grid-totalsummary-cell-last{ 
+    border-right:1px solid #C2C2C2;
+}
+.l-panel-bar {
+    height:28px;
+    background:#efefef;
+    overflow:hidden;
+    border:1px solid #c2c2c2;
+    width:100%;
+}
+.l-bar-separator {
+	float: left;
+	height: 18px;
+	border-left: 1px solid #c2c2c2;
+	border-right: 1px solid white;
+	/*margin: 2px;*/
+}
+.l-panel-bbar-inner {
+   min-width:330px;
+   _width:330px;
+}
+.l-grid-hd-cell {   
+    padding:0;
+    margin:0;
+    overflow:hidden; 
+    
+    border-right:1px solid #c2c2c2;
+    text-align:center;
+}
+/*
+    grouping
+*/
+.l-grid .l-grid-grouprow{ 
+    border-right:1px solid #C2C2C2;
+}
+.l-grid .l-grid-grouprow-cell{ 
+	padding:6px; 
+    border-bottom:1px solid #C2C2C2;
+	background:#EAF3FF;
+}
+.l-grid-totalsummary .l-grid-totalsummary-cell-last{ 
+    border-right:1px solid #C2C2C2;
+}
+/*
+    detail
+*/
+.l-grid-detailpanel {
+    border-right:1px solid #C2C2C2;
+    border-bottom:1px solid #C2C2C2;
+}
