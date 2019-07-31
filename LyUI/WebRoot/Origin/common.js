@@ -1,6 +1,7 @@
 /*
  * 魏霸王*/
 var BassModuleUrl = "/LyUI/Origin/Widget/";
+var BassModuleUrlB = "/LyUI/Origin/bootstrap/";
 var BassDirUrl = "/LyUI/Origin/Library/";
 var BassCssUrl = "/LyUI/Origin/Widget/skins/default/";
 var LyCache = {
@@ -36,7 +37,6 @@ function InitCompriseCss(URL){
 		LyCache.CssPath[URL] = true;
 	}
 }
-InitCompriseCss(BassModuleUrl+"bootstrap/css/bootstrap.css");
 InitComprise("/LyUI/Origin/JQuery/jquery-1.11.3.min.js");
 //InitComprise("/LyUI/Origin/JQuery/jquery-ui-1.11.4.min.js");
 InitComprise(BassDirUrl+"Base.js");

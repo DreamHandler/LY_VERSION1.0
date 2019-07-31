@@ -153,7 +153,7 @@ LBase.prototype = {
 			xmlObject = new getAjaxObject();
 			if (xmlObject) {
 				var url = "http.dos";
-				var data= this.SetXml(Djson,className,TagName);alert(data.xml)
+				var data= this.SetXml(Djson,className,TagName);
 				xmlObject.open("post", url, Bool);
 				xmlObject.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xmlObject.onreadystatechange = hander;
