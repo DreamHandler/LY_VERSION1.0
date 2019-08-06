@@ -121,12 +121,12 @@ LBase.prototype = {
 				return false;
 			}
 			var XmlDom,ReVal;
-//			if(isIE){
+			if(isIE){
 				XmlDom = this.CreateXML();
 				Rturn_value = XmlDom.loadXML(XmlStr);
-//			}else{
-//				Rturn_value = new DOMParser().parseFromString(XmlStr,"text/xml");
-//			}
+			}else{
+				Rturn_value = new DOMParser().parseFromString(XmlStr,"text/xml");
+			}
 			return XmlDom || Rturn_value;
 		},
 		SetXml : function(Djson,className,TagName) {
