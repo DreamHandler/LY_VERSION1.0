@@ -3,17 +3,17 @@
 {
     var l = $.Lyui;
 
-    $.fn.ligerGrid = function (options)
+    $.fn.LyGrid = function (options)
     {
-        return $.Lyui.run.call(this, "ligerGrid", arguments);
+        return $.Lyui.run.call(this, "LyGrid", arguments);
     };
 
-    $.fn.ligerGetGridManager = function ()
+    $.fn.LyGetGridManager = function ()
     {
-        return $.Lyui.run.call(this, "ligerGetGridManager", arguments);
+        return $.Lyui.run.call(this, "LyGetGridManager", arguments);
     };
 
-    $.ligerDefaults.Grid = {
+    $.LyDefaults.Grid = {
         title: null,
         width: 'auto',                          //宽度值
         height: 'auto',                          //宽度值
@@ -34,7 +34,7 @@
         dataType: 'server',                     //数据源：本地(local)或(server),本地是将读取p.data。不需要配置，取决于设置了data或是url
         dataAction: 'server',                    //提交数据的方式：本地(local)或(server),选择本地方式时将在客服端分页、排序。 
         showTableToggleBtn: false,              //是否显示'显示隐藏Grid'按钮 
-        switchPageSizeApplyComboBox: false,     //切换每页记录数是否应用ligerComboBox
+        switchPageSizeApplyComboBox: false,     //切换每页记录数是否应用LyComboBox
         allowAdjustColWidth: true,              //是否允许调整列宽     
         checkbox: false,                         //是否显示复选框
         isSingleCheck: false,                  //复选框选择的时候是否单选模式
@@ -96,7 +96,7 @@
         onRowDragDrop: null,                    //行拖拽事件
         rowHeight: 28,                           //行默认的高度
         headerRowHeight: 28,                    //表头行的高度
-        toolbar: null,                           //工具条,参数同 ligerToolbar的,额外参数有title、icon
+        toolbar: null,                           //工具条,参数同 LyToolbar的,额外参数有title、icon
         toolbarShowInLeft: true,               //工具条显示在左边
         headerImg: null,                        //表格头部图标  
         editorTopDiff: 3,                      //编辑器top误差
@@ -147,7 +147,7 @@
         onLoadData: null,                       //加载数据前事件 
         onHeaderCellBulid: null
     };
-    $.ligerDefaults.GridString = {
+    $.LyDefaults.GridString = {
         errorMessage: '发生错误',
         pageStatMessage: '显示从{from}到{to}，总 {total} 条 。每页显示：{pagesize}',
         pageTextMessage: 'Page',
@@ -161,7 +161,7 @@
         draggingMessage: '{count}行'
     };
 
-    $.ligerDefaults.Grid_columns = {
+    $.LyDefaults.Grid_columns = {
         id: null,
         name: null,
         totalSummary: null,
@@ -180,45 +180,45 @@
         render: null,
         textField: null  //真正显示的字段名,如果设置了，在编辑状态时,会调用创建编辑器的setText和getText方法
     };
-    $.ligerDefaults.Grid_editor = {
+    $.LyDefaults.Grid_editor = {
         type: null,
         ext: null,
         onChange: null,
         onChanged: null
     };
     //接口方法扩展
-    $.ligerMethos.Grid = $.ligerMethos.Grid || {};
+    $.LyMethos.Grid = $.LyMethos.Grid || {};
 
     //排序器扩展
-    $.ligerDefaults.Grid.sorters = $.ligerDefaults.Grid.sorters || {};
+    $.LyDefaults.Grid.sorters = $.LyDefaults.Grid.sorters || {};
 
     //格式化器扩展
-    $.ligerDefaults.Grid.formatters = $.ligerDefaults.Grid.formatters || {};
+    $.LyDefaults.Grid.formatters = $.LyDefaults.Grid.formatters || {};
 
     //编辑器扩展
-    $.ligerDefaults.Grid.editors = $.ligerDefaults.Grid.editors || {};
+    $.LyDefaults.Grid.editors = $.LyDefaults.Grid.editors || {};
 
 
-    $.ligerDefaults.Grid.sorters['date'] = function (val1, val2)
+    $.LyDefaults.Grid.sorters['date'] = function (val1, val2)
     {
         return val1 < val2 ? -1 : val1 > val2 ? 1 : 0;
     };
-    $.ligerDefaults.Grid.sorters['int'] = function (val1, val2)
+    $.LyDefaults.Grid.sorters['int'] = function (val1, val2)
     {
         return parseInt(val1) < parseInt(val2) ? -1 : parseInt(val1) > parseInt(val2) ? 1 : 0;
     };
-    $.ligerDefaults.Grid.sorters['float'] = function (val1, val2)
+    $.LyDefaults.Grid.sorters['float'] = function (val1, val2)
     {
         return parseFloat(val1) < parseFloat(val2) ? -1 : parseFloat(val1) > parseFloat(val2) ? 1 : 0;
     };
-    $.ligerDefaults.Grid.sorters['string'] = function (val1, val2)
+    $.LyDefaults.Grid.sorters['string'] = function (val1, val2)
     {
         if (!val1) return false;
         return val1.localeCompare(val2);
     };
 
 
-    $.ligerDefaults.Grid.formatters['date'] = function (value, column)
+    $.LyDefaults.Grid.formatters['date'] = function (value, column)
     {
         function getFormatDate(date, dateformat)
         {
@@ -268,7 +268,7 @@
     }
 
     //引用类型,数据形式表现为[id,text] 
-    $.ligerDefaults.Grid.formatters['ref'] = function (value)
+    $.LyDefaults.Grid.formatters['ref'] = function (value)
     {
         if ($.isArray(value)) return value.length > 1 ? value[1] : value[0];
         return value;
@@ -280,7 +280,7 @@
         $.Lyui.controls.Grid.base.constructor.call(this, element, options);
     };
 
-    $.Lyui.controls.Grid.ligerExtend($.Lyui.core.UIComponent, {
+    $.Lyui.controls.Grid.LyExtend($.Lyui.core.UIComponent, {
         __getType: function ()
         {
             return '$.Lyui.controls.Grid';
@@ -291,7 +291,7 @@
         },
         _extendMethods: function ()
         {
-            return $.ligerMethos.Grid;
+            return $.LyMethos.Grid;
         },
         _init: function ()
         {
@@ -368,12 +368,12 @@
                 };
             }
             //编辑构造器初始化
-            for (var type in liger.editors)
+            for (var type in Ly.editors)
             {
-                var editor = liger.editors[type];
+                var editor = Ly.editors[type];
                 //如果没有默认的或者已经定义
                 if (!editor || type in p.editors) continue;
-                p.editors[type] = liger.getEditor($.extend({
+                p.editors[type] = Ly.getEditor($.extend({
                     type: type,
                     master: g
                 }, editor));
@@ -544,10 +544,10 @@
         _setToolbar: function (value)
         {
             var g = this, p = this.options;
-            if (value && $.fn.ligerToolBar)
+            if (value && $.fn.LyToolBar)
             {
                 g.topbar.parent().show();
-                g.toolbarManager = g.topbar.ligerToolBar(value);
+                g.toolbarManager = g.topbar.LyToolBar(value);
                 if (value.title)
                 {
                     var jtitle = $("<div class='l-panel-topbartitle'><span>" + value.title + "</span></div>");
@@ -610,7 +610,7 @@
                 var gridHeaderHeight = p.headerRowHeight * (g._columnMaxLevel - 1) + p.headerRowHeight - 1;
                 g.gridview.height(h + gridHeaderHeight);
             }
-            g._updateHorizontalScrollStatus.ligerDefer(g, 10);
+            g._updateHorizontalScrollStatus.LyDefer(g, 10);
         },
         _calculateGridBodyHeight: function (h)
         {
@@ -817,7 +817,7 @@
             else
             {
                 g.loadServerData(param, clause, sourceType);
-                //g.loadServerData.ligerDefer(g, 10, [param, clause]);
+                //g.loadServerData.LyDefer(g, 10, [param, clause]);
             }
             g.loading = false;
         },
@@ -904,7 +904,7 @@
                             g.currentData = g.filteredData;
                     }
                     g._convertTreeData();
-                    g._showData.ligerDefer(g, 10, [sourceType]);
+                    g._showData.LyDefer(g, 10, [sourceType]);
                 },
                 complete: function ()
                 {
@@ -915,7 +915,7 @@
                     }
                     else
                     {
-                        g.toggleLoading.ligerDefer(g, 10, [false]);
+                        g.toggleLoading.LyDefer(g, 10, [false]);
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown)
@@ -923,7 +923,7 @@
                     g.currentData = g.data = {};
                     g.currentData[p.root] = g.data[p.root] = [];
                     g.currentData[p.record] = g.data[p.record] = 0;
-                    g.toggleLoading.ligerDefer(g, 10, [false]);
+                    g.toggleLoading.LyDefer(g, 10, [false]);
                     $(".l-bar-btnload span", g.toolbar).removeClass("l-disabled");
                     g.trigger('error', [XMLHttpRequest, textStatus, errorThrown]);
                 }
@@ -949,7 +949,7 @@
                 {
                     result = o;
                 }
-                return liger.toJSON(result);
+                return Ly.toJSON(result);
             }
         },
         toggleLoading: function (show)
@@ -1173,7 +1173,7 @@
                     g.endEdit(rowid);
                 }
             }
-            g._fixHeight.ligerDefer(g, 10);
+            g._fixHeight.LyDefer(g, 10);
         },
         setWidth: function (w)
         {
@@ -1230,9 +1230,9 @@
             {
                 var o = this.selected[i];
                 if (o['__id'] in this.records)
-                    this._deleteData.ligerDefer(this, 10, [o]);
+                    this._deleteData.LyDefer(this, 10, [o]);
             }
-            this.reRender.ligerDefer(this, 20);
+            this.reRender.LyDefer(this, 20);
         },
         removeRange: function (rowArr)
         {
@@ -1527,7 +1527,7 @@
             $.extend(rowdata, newRowData || {});
             if (rowdata[p.statusName] != 'add')
                 rowdata[p.statusName] = 'update';
-            g.reRender.ligerDefer(g, 10, [{ rowdata: rowdata }]);
+            g.reRender.LyDefer(g, 10, [{ rowdata: rowdata }]);
             return rowdata;
         },
         setCellEditing: function (rowdata, column, editing)
@@ -2085,9 +2085,9 @@
                 $(':checkbox[columnindex=' + columnindex + "]", g.popup).each(function ()
                 {
                     this.checked = visible;
-                    if ($.fn.ligerCheckBox)
+                    if ($.fn.LyCheckBox)
                     {
-                        var checkboxmanager = $(this).ligerGetCheckBoxManager();
+                        var checkboxmanager = $(this).LyGetCheckBoxManager();
                         if (checkboxmanager) checkboxmanager.updateStyle();
                     }
                 });
@@ -2164,7 +2164,7 @@
             $(cells).css('width', newwidth).find("> div.l-grid-row-cell-inner:first").css('width', newwidth - 8);
 
             g._updateFrozenWidth();
-            g._updateHorizontalScrollStatus.ligerDefer(g, 10);
+            g._updateHorizontalScrollStatus.LyDefer(g, 10);
 
             g.trigger('afterChangeColumnWidth', [column, newwidth]);
         },
@@ -2669,9 +2669,9 @@
             }
             if (p.toolbar)
             {
-                if ($.fn.ligerToolBar)
+                if ($.fn.LyToolBar)
                 {
-                    g.toolbarManager = g.topbar.ligerToolBar(p.toolbar);
+                    g.toolbarManager = g.topbar.LyToolBar(p.toolbar);
                     //原语句不知道为什么, toolbar的父div高度为0. 导致样式有问题. 
                     if (g.topbar.height() == 0)
                         g.topbar.parent().height(25);
@@ -2904,9 +2904,9 @@
             else
                 headerText = "&nbsp;";
             $(".l-grid-hd-cell-text:first", jcell).html(headerText);
-            if (!column.issystem && column['__leaf'] && column.resizable !== false && $.fn.ligerResizable && p.allowAdjustColWidth)
+            if (!column.issystem && column['__leaf'] && column.resizable !== false && $.fn.LyResizable && p.allowAdjustColWidth)
             {
-                g.colResizable[column['__id']] = jcell.ligerResizable({
+                g.colResizable[column['__id']] = jcell.LyResizable({
                     handles: 'e',
                     onStartResize: function (e, ev)
                     {
@@ -2993,9 +2993,9 @@
                 var header = column.display;
                 $('tbody', g.popup).append('<tr><td class="l-column-left"><input type="checkbox" ' + chk + ' class="l-checkbox" columnindex="' + i + '"/></td><td class="l-column-right">' + header + '</td></tr>');
             });
-            if ($.fn.ligerCheckBox)
+            if ($.fn.LyCheckBox)
             {
-                $('input:checkbox', g.popup).ligerCheckBox(
+                $('input:checkbox', g.popup).LyCheckBox(
                 {
                     onBeforeClick: function (obj)
                     {
@@ -3025,7 +3025,7 @@
                     }
                     g.toggleCol(parseInt($(this).attr("columnindex")), this.checked, true);
                 };
-                if ($.fn.ligerCheckBox)
+                if ($.fn.LyCheckBox)
                     $(':checkbox', g.popup).bind('change', onPopupCheckboxChange);
                 else
                     $(':checkbox', g.popup).bind('click', onPopupCheckboxChange);
@@ -3072,9 +3072,9 @@
 
                 $('.l-bar-selectpagesize', g.toolbar).append("<select name='rp'>" + optStr + "</select>");
                 if (selectedIndex != -1) $('.l-bar-selectpagesize select', g.toolbar)[0].selectedIndex = selectedIndex;
-                if (p.switchPageSizeApplyComboBox && $.fn.ligerComboBox)
+                if (p.switchPageSizeApplyComboBox && $.fn.LyComboBox)
                 {
-                    $(".l-bar-selectpagesize select", g.toolbar).ligerComboBox(
+                    $(".l-bar-selectpagesize select", g.toolbar).LyComboBox(
                     {
                         onBeforeSelect: function ()
                         {
@@ -3285,7 +3285,7 @@
                     g.toolbar.html(p.pagerRender.call(g));
                     return;
                 }
-                g._onResize.ligerDefer(g, 50);
+                g._onResize.LyDefer(g, 50);
                 return;
             }
             else
@@ -3624,7 +3624,7 @@
                 if (column.textField) editParm.text = g._getValueByName(rowdata, column.textField);
                 if (g.trigger('beforeEdit', [editParm]) == false) return false;
                 g.lastEditRow = rowdata;
-                liger.lastEditGrid = g;
+                Ly.lastEditGrid = g;
                 var editor = p.editors[column.editor.type],
                     jcell = $(rowcell), offset = $(rowcell).offset(),
                     width = $(rowcell).width(), height = $(rowcell).height(),
@@ -4217,10 +4217,10 @@
                 $(this).removeClass("l-bar-button-over");
             });
             //列拖拽支持
-            if ($.fn.ligerDrag && p.colDraggable)
+            if ($.fn.LyDrag && p.colDraggable)
             {
                 g.colDroptip = $("<div class='l-drag-coldroptip' style='display:none'><div class='l-drop-move-up'></div><div class='l-drop-move-down'></div></div>").appendTo('body');
-                g.gridheader.add(g.f.gridheader).ligerDrag({
+                g.gridheader.add(g.f.gridheader).LyDrag({
                     revert: true, animate: false,
                     proxyX: 0, proxyY: 0,
                     proxy: function (draggable, e)
@@ -4335,7 +4335,7 @@
                         g.coldragging = false;
                         if (g.colDropIn != -1)
                         {
-                            g.changeCol.ligerDefer(g, 0, [column, g.colDropIn, g.colDropDir == "right"]);
+                            g.changeCol.LyDefer(g, 0, [column, g.colDropIn, g.colDropDir == "right"]);
                             g.colDropIn = -1;
                         }
                         g.colDroptip.hide();
@@ -4344,10 +4344,10 @@
                 });
             }
             //行拖拽支持
-            if ($.fn.ligerDrag && p.rowDraggable)
+            if ($.fn.LyDrag && p.rowDraggable)
             {
                 g.rowDroptip = $("<div class='l-drag-rowdroptip' style='display:none'></div>").appendTo('body');
-                g.gridbody.add(g.f.gridbody).ligerDrag({
+                g.gridbody.add(g.f.gridbody).LyDrag({
                     revert: true, animate: false,
                     proxyX: 0, proxyY: 0,
                     proxy: function (draggable, e)
@@ -5003,7 +5003,7 @@
             }
             else
             {
-                g._updateHorizontalScrollStatus.ligerDefer(g, 10);
+                g._updateHorizontalScrollStatus.LyDefer(g, 10);
             }
             if (g.enabledFrozen())
             {
@@ -5033,9 +5033,9 @@
                 return;
             }
             var filtercontainer = $('<div id="' + g.id + '_filtercontainer"></div>').width(380).height(120).hide();
-            var filter = filtercontainer.ligerFilter({ fields: getFields() });
+            var filter = filtercontainer.LyFilter({ fields: getFields() });
             filter.addRule($(filter.element.firstChild));
-            return g.winfilter = $.ligerDialog.open({
+            return g.winfilter = $.LyDialog.open({
                 width: 420, height: 208,
                 target: filtercontainer, isResize: true, top: 50,
                 buttons: [
@@ -5093,7 +5093,7 @@
             }
             function loadClientData(data)
             {
-                g.loadData($.ligerFilter.getFilterFunction(data));
+                g.loadData($.LyFilter.getFilterFunction(data));
             }
         }
     });

@@ -8,7 +8,7 @@ var LyCache = {
 		codePath : {},
 		CssPath : {},
 		inherit : [
-		           {url:"",parent:""}
+		           {url:"Grid/LyGrid.js",parent:"CheckBox/LyCheckBox.js|ComboBox/LyComboBox.js|DateTime/LyDateEditor.js|Dialog/LyDialog.js|Filter/LyFilter.js|Form/LyForm.js|Form/LySpinner.js|Portal/LyDrag.js|Portal/LyResizable.js|TextBox/LyTextBox.js|ToolBar/LyButton.js|ToolBar/LyToolBar.js|Library/jQbase.js"}
 		           ]
 }
 function InitComprise(scriptUrl){

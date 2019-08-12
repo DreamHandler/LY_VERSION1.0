@@ -1,4 +1,5 @@
-﻿/**
+﻿InitCompriseCss("/LyUI/Origin/Widget/skins/default/css/Lyui-all.css");
+/**
 * jQuery LyUI 1.3.2
 * 
 * http://Lyui.com
@@ -9,7 +10,7 @@
 (function ($)
 {
     //Lyui 继承方法
-    Function.prototype.ligerExtend = function (parent, overrides)
+    Function.prototype.LyExtend = function (parent, overrides)
     {
         if (typeof parent != 'function') return this;
         //保存对父类的引用
@@ -24,14 +25,14 @@
         if (overrides) $.extend(this.prototype, overrides);
     };
     //延时加载
-    Function.prototype.ligerDefer = function (o, defer, args)
+    Function.prototype.LyDefer = function (o, defer, args)
     {
         var fn = this;
         return setTimeout(function () { fn.apply(o, args || []); }, defer);
     };
 
     // 核心对象
-    window.liger = $.Lyui = {
+    window.Ly = $.Lyui = {
         version: 'V1.3.2',
         managerCount: 0,
         //组件管理器池
@@ -43,7 +44,7 @@
         error: {
             managerIsExist: '管理器id已经存在'
         },
-        pluginPrev: 'liger',
+        pluginPrev: 'Ly',
         attrPrev:'data',
         getId: function (prev)
         {
@@ -73,18 +74,18 @@
         {
             if (typeof arg == "string" || typeof arg == "number")
             {
-                delete liger.managers[arg];
+                delete Ly.managers[arg];
             }
             else if (typeof arg == "object")
             {
-                if (arg instanceof liger.core.Component)
+                if (arg instanceof Ly.core.Component)
                 {
-                    delete liger.managers[arg.id];
+                    delete Ly.managers[arg.id];
                 }
                 else
                 {
                     if (!$(arg).attr(this.idAttrName)) return false;
-                    delete liger.managers[$(arg).attr(this.idAttrName)];
+                    delete Ly.managers[$(arg).attr(this.idAttrName)];
                 }
             }
              
@@ -97,14 +98,14 @@
             idAttrName = idAttrName || "Lyuiid";
             if (typeof arg == "string" || typeof arg == "number")
             {
-                return liger.managers[arg];
+                return Ly.managers[arg];
             }
             else if (typeof arg == "object")
             {
                 var domObj = arg.length ? arg[0] : arg;
                 var id = domObj[idAttrName] || $(domObj).attr(idAttrName);
                 if (!id) return null;
-                return liger.managers[id];
+                return Ly.managers[id];
             }
             return null;
         },
@@ -139,7 +140,7 @@
             }
             return arr;
         },
-        //$.fn.liger{Plugin} 和 $.fn.ligerGet{Plugin}Manager
+        //$.fn.Ly{Plugin} 和 $.fn.LyGet{Plugin}Manager
         //会调用这个方法,并传入作用域(this)
         //parm [plugin]  插件名
         //parm [args] 参数(数组)
@@ -148,40 +149,40 @@
         {
             if (!plugin) return;
             ext = $.extend({
-                defaultsNamespace: 'ligerDefaults',
-                methodsNamespace: 'ligerMethods',
+                defaultsNamespace: 'LyDefaults',
+                methodsNamespace: 'LyMethods',
                 controlNamespace: 'controls',
                 idAttrName: 'Lyuiid',
                 isStatic: false,
                 hasElement: true,           //是否拥有element主体(比如drag、resizable等辅助性插件就不拥有)
                 propertyToElemnt: null      //链接到element的属性名
             }, ext || {});
-            plugin = plugin.replace(/^ligerGet/, '');
-            plugin = plugin.replace(/^liger/, '');
+            plugin = plugin.replace(/^LyGet/, '');
+            plugin = plugin.replace(/^Ly/, '');
             if (this == null || this == window || ext.isStatic)
             {
-                if (!liger.plugins[plugin])
+                if (!Ly.plugins[plugin])
                 {
-                    liger.plugins[plugin] = {
-                        fn: $[liger.pluginPrev + plugin],
+                    Ly.plugins[plugin] = {
+                        fn: $[Ly.pluginPrev + plugin],
                         isStatic: true
                     };
                 }
                 return new $.Lyui[ext.controlNamespace][plugin]($.extend({}, $[ext.defaultsNamespace][plugin] || {}, $[ext.defaultsNamespace][plugin + 'String'] || {}, args.length > 0 ? args[0] : {}));
             }
-            if (!liger.plugins[plugin])
+            if (!Ly.plugins[plugin])
             {
-                liger.plugins[plugin] = {
-                    fn: $.fn[liger.pluginPrev + plugin],
+                Ly.plugins[plugin] = {
+                    fn: $.fn[Ly.pluginPrev + plugin],
                     isStatic: false
                 };
             }
-            if (/Manager$/.test(plugin)) return liger.get(this, ext.idAttrName);
+            if (/Manager$/.test(plugin)) return Ly.get(this, ext.idAttrName);
             this.each(function ()
             {
                 if (this[ext.idAttrName] || $(this).attr(ext.idAttrName))
                 {
-                    var manager = liger.get(this[ext.idAttrName] || $(this).attr(ext.idAttrName));
+                    var manager = Ly.get(this[ext.idAttrName] || $(this).attr(ext.idAttrName));
                     if (manager && args.length > 0) manager.set(args[0]);
                     //已经执行过 
                     return;
@@ -201,11 +202,11 @@
                 }
             });
             if (this.length == 0) return null;
-            if (args.length == 0) return liger.get(this, ext.idAttrName);
-            if (typeof args[0] == 'object') return liger.get(this, ext.idAttrName);
+            if (args.length == 0) return Ly.get(this, ext.idAttrName);
+            if (typeof args[0] == 'object') return Ly.get(this, ext.idAttrName);
             if (typeof args[0] == 'string')
             {
-                var manager = liger.get(this, ext.idAttrName);
+                var manager = Ly.get(this, ext.idAttrName);
                 if (manager == null) return;
                 if (args[0] == "option")
                 {
@@ -244,26 +245,26 @@
 
 
     //扩展对象
-    $.ligerDefaults = {};
+    $.LyDefaults = {};
 
     //扩展对象
-    $.ligerMethos = {};
+    $.LyMethos = {};
 
     //关联起来
-    liger.defaults = $.ligerDefaults;
-    liger.methods = $.ligerMethos;
+    Ly.defaults = $.LyDefaults;
+    Ly.methods = $.LyMethos;
 
     //获取Lyui对象
     //parm [plugin]  插件名,可为空
-    $.fn.liger = function (plugin)
+    $.fn.Ly = function (plugin)
     {
         if (plugin)
         {
-            return liger.run.call(this, plugin, arguments);
+            return Ly.run.call(this, plugin, arguments);
         }
         else
         {
-            return liger.get(this);
+            return Ly.get(this);
         }
     };
 
@@ -271,7 +272,7 @@
     //组件基类
     //1,完成定义参数处理方法和参数属性初始化的工作
     //2,完成定义事件处理方法和事件属性初始化的工作
-    liger.core.Component = function (options)
+    Ly.core.Component = function (options)
     {
         //事件容器
         this.events = this.events || {};
@@ -280,10 +281,10 @@
         //子组件集合索引
         this.children = {};
     };
-    $.extend(liger.core.Component.prototype, {
+    $.extend(Ly.core.Component.prototype, {
         __getType: function ()
         {
-            return 'liger.core.Component';
+            return 'Ly.core.Component';
         },
         __idPrev: function ()
         {
@@ -433,7 +434,7 @@
         },
         destroy: function ()
         {
-            liger.remove(this);
+            Ly.remove(this);
         }
     });
 
@@ -443,9 +444,9 @@
     //2,渲染的工作,细节交给子类实现
     //parm [element] 组件对应的dom element对象
     //parm [options] 组件的参数
-    liger.core.UIComponent = function (element, options)
+    Ly.core.UIComponent = function (element, options)
     {
-        liger.core.UIComponent.base.constructor.call(this, options);
+        Ly.core.UIComponent.base.constructor.call(this, options);
         var extendMethods = this._extendMethods();
         if (extendMethods) $.extend(this, extendMethods);
         this.element = element;
@@ -456,10 +457,10 @@
         this.trigger('rendered');
         this._rendered();
     };
-    liger.core.UIComponent.ligerExtend(liger.core.Component, {
+    Ly.core.UIComponent.LyExtend(Ly.core.Component, {
         __getType: function ()
         {
-            return 'liger.core.UIComponent';
+            return 'Ly.core.UIComponent';
         },
         //扩展方法
         _extendMethods: function ()
@@ -471,14 +472,14 @@
             this.type = this.__getType();
             if (!this.element)
             {
-                this.id = this.options.id || liger.getId(this.__idPrev());
+                this.id = this.options.id || Ly.getId(this.__idPrev());
             }
             else
             {
-                this.id = this.options.id || this.element.id || liger.getId(this.__idPrev());
+                this.id = this.options.id || this.element.id || Ly.getId(this.__idPrev());
             }
             //存入管理器池
-            liger.add(this);
+            Ly.add(this);
 
             if (!this.element) return;
 
@@ -514,13 +515,13 @@
             { 
                 var op = {};
                 if (!control || control.indexOf('.') != -1) return op;
-                var defaultOp = liger.defaults[control]; 
+                var defaultOp = Ly.defaults[control]; 
                 if (!defaultOp) return op;
                 for (var name in defaultOp)
                 {
-                    if (jelement.attr(liger.attrPrev + "-" + name))
+                    if (jelement.attr(Ly.attrPrev + "-" + name))
                     {
-                        var value = jelement.attr(liger.attrPrev + "-" + name);
+                        var value = jelement.attr(Ly.attrPrev + "-" + name);
                         if (typeof (defaultOp[name]) == "boolean")
                         {
                             op[name] = value == "true" || value == "1";
@@ -571,21 +572,21 @@
                 $(this.element).remove();
             }
             this.options = null;
-            liger.remove(this);
+            Ly.remove(this);
         }
     });
 
 
     //表单控件基类
-    liger.controls.Input = function (element, options)
+    Ly.controls.Input = function (element, options)
     {
-        liger.controls.Input.base.constructor.call(this, element, options);
+        Ly.controls.Input.base.constructor.call(this, element, options);
     };
 
-    liger.controls.Input.ligerExtend(liger.core.UIComponent, {
+    Ly.controls.Input.LyExtend(Ly.core.UIComponent, {
         __getType: function ()
         {
-            return 'liger.controls.Input';
+            return 'Ly.controls.Input';
         },
         attr: function ()
         {
@@ -638,7 +639,7 @@
     });
 
     //全局窗口对象
-    liger.win = {
+    Ly.win = {
         //顶端显示
         top: false,
 
@@ -647,9 +648,9 @@
         {
             function setHeight()
             {
-                if (!liger.win.windowMask) return;
+                if (!Ly.win.windowMask) return;
                 var h = $(window).height() + $(window).scrollTop();
-                liger.win.windowMask.height(h);
+                Ly.win.windowMask.height(h);
             }
             if (!this.windowMask)
             {
@@ -671,7 +672,7 @@
                 var winid = jwins.eq(i).attr("Lyuiid");
                 if (win && win.id == winid) continue;
                 //获取Lyui对象
-                var winmanager = liger.get(winid);
+                var winmanager = Ly.get(winid);
                 if (!winmanager) continue;
                 //是否模态窗口
                 var modal = winmanager.get('modal');
@@ -791,7 +792,7 @@
         //前端显示
         setFront: function (win)
         {
-            var wins = liger.find(liger.core.Win);
+            var wins = Ly.find(Ly.core.Win);
             for (var i in wins)
             {
                 var w = wins[i];
@@ -810,25 +811,25 @@
 
 
     //窗口基类 window、dialog
-    liger.core.Win = function (element, options)
+    Ly.core.Win = function (element, options)
     {
-        liger.core.Win.base.constructor.call(this, element, options);
+        Ly.core.Win.base.constructor.call(this, element, options);
     };
 
-    liger.core.Win.ligerExtend(liger.core.UIComponent, {
+    Ly.core.Win.LyExtend(Ly.core.UIComponent, {
         __getType: function ()
         {
-            return 'liger.controls.Win';
+            return 'Ly.controls.Win';
         },
         mask: function ()
         {
             if (this.options.modal)
-                liger.win.mask(this);
+                Ly.win.mask(this);
         },
         unmask: function ()
         {
             if (this.options.modal)
-                liger.win.unmask(this);
+                Ly.win.unmask(this);
         },
         min: function ()
         {
@@ -842,16 +843,16 @@
     });
 
 
-    liger.draggable = {
+    Ly.draggable = {
         dragging: false
     };
 
-    liger.resizable = {
+    Ly.resizable = {
         reszing: false
     };
 
 
-    liger.toJSON = typeof JSON === 'object' && JSON.stringify ? JSON.stringify : function (o)
+    Ly.toJSON = typeof JSON === 'object' && JSON.stringify ? JSON.stringify : function (o)
     {
         var f = function (n)
         {
@@ -879,7 +880,7 @@
         {
             if (typeof o.toJSON === 'function')
             {
-                return liger.toJSON(o.toJSON());
+                return Ly.toJSON(o.toJSON());
             }
             if (o.constructor === Date)
             {
@@ -896,7 +897,7 @@
             {
                 for (var i = 0, l = o.length; i < l; i++)
                 {
-                    pairs.push(liger.toJSON(o[i]) || 'null');
+                    pairs.push(Ly.toJSON(o[i]) || 'null');
                 }
                 return '[' + pairs.join(',') + ']';
             }
@@ -919,7 +920,7 @@
                 {
                     continue;
                 }
-                val = liger.toJSON(o[k]);
+                val = Ly.toJSON(o[k]);
                 pairs.push(name + ':' + val);
             }
             return '{' + pairs.join(',') + '}';
@@ -927,7 +928,7 @@
     };
 
     //获取 默认的编辑构造器
-    liger.getEditor = function (e)
+    Ly.getEditor = function (e)
     {
         var type = e.type, control = e.control, master = e.master;
         if (!type) return null;
@@ -978,7 +979,7 @@
                         }
                         if (field.validate && !master.options.unSetValidateAttr)
                         {
-                            inputBody.attr('validate', liger.toJSON(field.validate));
+                            inputBody.attr('validate', Ly.toJSON(field.validate));
                         }
                     }
                     $.extend(p, field.options);
@@ -1046,7 +1047,7 @@
                     }
                 } 
                 //返回的是Lyui对象
-                var lobj = inputBody['liger' + control](p);
+                var lobj = inputBody['Ly' + control](p);
                 if (isInGrid)
                 {
                     setTimeout(function () { inputBody.focus(); }, 100);
@@ -1192,12 +1193,12 @@
             }
         };
         
-        return $.extend({}, defaultOp, liger.editorCreatorDefaults || {}, e);
+        return $.extend({}, defaultOp, Ly.editorCreatorDefaults || {}, e);
     }
 
 
     //几个默认的编辑器构造函数
-    liger.editors = {
+    Ly.editors = {
         "text": {
             control: 'TextBox'
         },
@@ -1267,12 +1268,12 @@
             password: true
         }
     };
-    liger.editors["string"] = liger.editors["text"];
-    liger.editors["select"] = liger.editors["combobox"];
-    liger.editors["int"] = liger.editors["digits"];
-    liger.editors["float"] = liger.editors["number"];
-    liger.editors["chk"] = liger.editors["checkbox"];
-    liger.editors["popupedit"] = liger.editors["popup"];
+    Ly.editors["string"] = Ly.editors["text"];
+    Ly.editors["select"] = Ly.editors["combobox"];
+    Ly.editors["int"] = Ly.editors["digits"];
+    Ly.editors["float"] = Ly.editors["number"];
+    Ly.editors["chk"] = Ly.editors["checkbox"];
+    Ly.editors["popupedit"] = Ly.editors["popup"];
 
     //jQuery version fix
     $.fn.live = $.fn.on ? $.fn.on : $.fn.live;
