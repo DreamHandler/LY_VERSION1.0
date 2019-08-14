@@ -1,6 +1,6 @@
-InitCompriseCss(ModuleUrl+"EpBox/Css/EpBox.css");
+InitCompriseCss(BassCssUrl+"EpBox/Css/EpBox.css");
 var EpBox = Class.create();
-EpBox.prototype = Object.extend(new TBase(),{
+EpBox.prototype = Object.extend(new LBase(),{
 	EpboxData:[],
 	xpath :[],
 	ThisGrid :[],

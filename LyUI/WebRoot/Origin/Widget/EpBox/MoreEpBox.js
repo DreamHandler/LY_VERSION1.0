@@ -1,6 +1,6 @@
-InitCompriseCss(ModuleUrl+"EpBox/Css/MoreEpBox.css");
+InitCompriseCss(BassCssUrl+"EpBox/Css/MoreEpBox.css");
 var MoreEpBox = Class.create();
-MoreEpBox.prototype = Object.extend(new TBase(),{
+MoreEpBox.prototype = Object.extend(new LBase(),{
 	aXMLData : [],		//存储多个EpBox的XML数据
 	aXPath :[],			//存储多个EpBox的xpath表达式
 	srcObj : null,		//当前调用对象
