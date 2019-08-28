@@ -88,7 +88,7 @@ background: url('../images/panel/header-bg.gif') repeat-x left -1px; position:re
 } 
 .l-grid td div
 {
-    font-size:12px;
+    /* font-size:12px; */
 }
  .l-grid table{border-spacing:0 0;}
 .l-grid-header {

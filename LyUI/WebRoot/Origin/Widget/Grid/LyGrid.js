@@ -269,7 +269,7 @@
 
     //引用类型,数据形式表现为[id,text] 
     $.LyDefaults.Grid.formatters['ref'] = function (value)
-    {
+    {alert(111)
         if ($.isArray(value)) return value.length > 1 ? value[1] : value[0];
         return value;
     };
