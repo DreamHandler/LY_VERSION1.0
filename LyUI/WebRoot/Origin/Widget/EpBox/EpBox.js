@@ -1,4 +1,5 @@
 InitCompriseCss(BassCssUrl+"EpBox/Css/EpBox.css");
+InitCompriseCss(BassModuleUrlB+"css/bootstrap.css");
 var EpBox = Class.create();
 EpBox.prototype = Object.extend(new LBase(),{
 	EpboxData:[],
@@ -249,7 +250,7 @@ EpBox.prototype = Object.extend(new LBase(),{
 	},
 	createEpBox : function(xpath){ //创建EPBOX
 		if(this.EpboxData[this.epName] == undefined || epBox.xpath[this.epName] != xpath){
-			ajaxCall({"EpName":this.epName,"XPATH":xpath==null?"":xpath},
+			epBox.ajaxCall({"EpName":this.epName,"XPATH":xpath==null?"":xpath},
 					"Origin.Widget.EpBox.EpBox","QryData",this.setData,false);
 			epBox.xpath[this.epName] = xpath;
 		}else{
@@ -261,7 +262,7 @@ EpBox.prototype = Object.extend(new LBase(),{
 			var response = xmlObject;
 			var node = response.responseXML.documentElement;
 			if(node==null||node.xml===undefined){
-				node = StrToXml(response.responseText);
+				node = epBox.StrToXml(response.responseText);
 			}
 			if (node.selectSingleNode("RES/DAT") != null) {
 				epBox.EpboxData[epBox.epName] = null;

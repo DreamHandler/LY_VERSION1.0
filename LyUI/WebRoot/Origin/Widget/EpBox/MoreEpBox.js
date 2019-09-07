@@ -1,4 +1,5 @@
 InitCompriseCss(BassCssUrl+"EpBox/Css/MoreEpBox.css");
+InitCompriseCss(BassModuleUrlB+"css/bootstrap.css");
 var MoreEpBox = Class.create();
 MoreEpBox.prototype = Object.extend(new LBase(),{
 	aXMLData : [],		//存储多个EpBox的XML数据
@@ -104,7 +105,7 @@ MoreEpBox.prototype = Object.extend(new LBase(),{
 	 */
 	createEpBox : function(xpath){
 		if(this.aXMLData[this.epName] == null || this.aXPath[this.epName] != xpath){
-			ajaxCall({"EpName":this.epName,"XPATH":xpath==null?"":xpath},
+			moreEpBox.ajaxCall({"EpName":this.epName,"XPATH":xpath==null?"":xpath},
 					"Origin.Widget.EpBox.EpBox","QryData",this.setData,false);
 			this.aXPath[this.epName] = xpath;
 		}else{
@@ -120,7 +121,7 @@ MoreEpBox.prototype = Object.extend(new LBase(),{
 			var response = xmlObject;
 			var node = response.responseXML.documentElement;
 			if(node==null||node.xml===undefined){
-				node = StrToXml(response.responseText);
+				node = moreEpBox.StrToXml(response.responseText);
 			}
 			if (node.selectSingleNode("RES/DAT") != null) {
 				moreEpBox.aXMLData[moreEpBox.epName] = null;
@@ -161,7 +162,7 @@ MoreEpBox.prototype = Object.extend(new LBase(),{
 				var sValue2 = aValues[i].getAttribute(sField2);
 				if(isFilter){
 					if(this.PYMFilter){				//拼音嘛过滤
-						var sValue3 = aValues[i].getAttribute("CPYM");
+						var sValue3 = aValues[i].getAttribute("VPYM");
 						if(sValue1.indexOf(value) < 0 && sValue2.indexOf(value) < 0 
 							&& sValue3.toUpperCase().indexOf(value.toUpperCase()) < 0){
 							continue;
@@ -182,12 +183,12 @@ MoreEpBox.prototype = Object.extend(new LBase(),{
 				}
 				var checked = "";
 				result.append("<td width='").append(iWidth).append("px;' valign='top'>")
-					.append("<div class='checkboxDIV'><label for='chbId_").append(this.epName)
-					.append("_").append(sValue1).append("' >")
-					.append("<div class='label_checkbox'><input type='checkbox' name='chbName_")
-					.append(this.epName).append("' id='chbId_").append(this.epName).append("_")
-					.append(sValue1).append("' onclick='moreEpBox.selectCheckBox(this);' ")
-					.append(checked).append(" CMC='").append(sValue2).append("' ></div>")
+					.append("<div class='checkboxDIV'>")
+					.append("<input type='checkbox' name='chbName_").append(this.epName)
+					.append("' id='chbId_").append(this.epName).append("_").append(sValue1)
+					.append("' onclick='moreEpBox.selectCheckBox(this);' ")
+					.append(checked).append(" VName='").append(sValue2).append("' /><label for='chbId_")
+					.append(this.epName).append("_").append(sValue1).append("' class='checkbox-label'>")
 					.append(sValue2).append("</label></div></td>");
 			}
 			result.append("</tr></table>");
@@ -272,12 +273,12 @@ MoreEpBox.prototype = Object.extend(new LBase(),{
 				this.jCheckbox[this.epName] = null;
 			}
 			//获取id最后下划线之后的数据
-			var CBM = srcObj.id.substring((srcObj.id.lastIndexOf("_") + 1),srcObj.id.length);
-			var CMC = $(srcObj).attr("CMC");
+			var VNum = srcObj.id.substring((srcObj.id.lastIndexOf("_") + 1),srcObj.id.length);
+			var VName = $(srcObj).attr("VName");
 			if(srcObj.checked){
-				jObj[CBM] = CMC;
+				jObj[VNum] = VName;
 			}else{
-				delete jObj[CBM];
+				delete jObj[VNum];
 			}
 			//填充调用控件的值
 			this.jCheckbox[this.epName] = jObj;
@@ -287,7 +288,7 @@ MoreEpBox.prototype = Object.extend(new LBase(),{
 			if(this.srcObj.value != ""){
 				this.srcObj.value += "、";
 			}
-			this.srcObj.value += $(srcObj).attr("CMC");
+			this.srcObj.value += $(srcObj).attr("VName");
 		}
 		this.epSet(this.srcObj.id);
 	},
@@ -321,7 +322,7 @@ MoreEpBox.prototype = Object.extend(new LBase(),{
 		var value = $("#input_EpBoxFilter")[0].value;
 		this.showEpBox(true,value);
 	},
-	filterKeydown : function(iTag){
+	filterKeydown : function(iTag){alert(iTag)
 		if(event.keyCode == 13 || iTag){
 			if($("#" + moreEpBox.epNext)[0] != null){
 				$("#" + moreEpBox.epNext)[0].focus();
@@ -362,12 +363,12 @@ MoreEpBox.prototype = Object.extend(new LBase(),{
 			result.append("<table cellpadding='0' cellspacing='0' border='0'><tr>");
 			var iNum = 0;
 			var iWidth = (moreEpBox.width / moreEpBox.epColumn).toFixed(0);
-			for(var i = 0;i < node.CBM.length;i += 1){
-				var sValue1 = node.CBM[i];	
-				var sValue2 = node.CMC[i];
+			for(var i = 0;i < node.VNum.length;i += 1){
+				var sValue1 = node.VNum[i];	
+				var sValue2 = node.VName[i];
 				if(isFilter){
 					if(this.PYMFilter){				//拼音嘛过滤
-						var sValue3 = aValues[i].getAttribute("CPYM");
+						var sValue3 = aValues[i].getAttribute("VPYM");
 						if(sValue1.indexOf(value) < 0 && sValue2.indexOf(value) < 0 && sValue3.toUpperCase().indexOf(value.toUpperCase()) < 0)
 							continue;
 					}else{
@@ -385,7 +386,7 @@ MoreEpBox.prototype = Object.extend(new LBase(),{
 					.append("<div class='label_checkbox'><input type='checkbox' name='chbName_")
 					.append(this.epName).append("' id='chbId_").append(this.epName).append("_")
 					.append(sValue1).append("' onclick='moreEpBox.selectCheckBox(this);' ")
-					.append(checked).append(" CMC='").append(sValue2).append("' ></div>")
+					.append(checked).append(" VName='").append(sValue2).append("' ></div>")
 					.append(sValue2).append("</label></div></td>");
 			}
 			result.append("</tr></table>");
